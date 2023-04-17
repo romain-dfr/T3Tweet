@@ -4,7 +4,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 
 import { api } from "~/utils/api";
-import { Loading } from "./components/Loading";
+import Loading from "./components/Loading";
 
 const CreatePostWizard = () => {
   const { user } = useUser();

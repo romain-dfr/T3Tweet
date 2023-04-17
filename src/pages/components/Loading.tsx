@@ -27,10 +27,12 @@ const LoadingSpinner = ({ size }: LoadingSpinnerProps) => {
   );
 };
 
-export const Loading = () => {
+const Loading = () => {
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <LoadingSpinner />
     </div>
   );
 };
+
+export default Loading;
