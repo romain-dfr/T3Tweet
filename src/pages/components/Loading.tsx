@@ -2,7 +2,7 @@ interface LoadingSpinnerProps {
   size?: number;
 }
 
-const LoadingSpinner = ({ size }: LoadingSpinnerProps) => {
+export const LoadingSpinner = ({ size }: LoadingSpinnerProps) => {
   return (
     <div role="status">
       <svg
@@ -27,7 +27,7 @@ const LoadingSpinner = ({ size }: LoadingSpinnerProps) => {
   );
 };
 
-const Loading = () => {
+export const Loading = () => {
   return (
     <div className="absolute right-0 top-0 flex h-screen w-screen items-center justify-center">
       {/* //revoir le style*/}
@@ -35,5 +35,3 @@ const Loading = () => {
     </div>
   );
 };
-
-export default Loading;

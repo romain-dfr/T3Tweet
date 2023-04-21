@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 
 import { type RouterOutputs, api } from "~/utils/api";
-import Loading from "./components/Loading";
+import { Loading, LoadingSpinner } from "./components/Loading";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useState } from "react";
@@ -52,11 +52,18 @@ const CreatePostWizard = () => {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
+            e.preventDefault();
+            if (input === "") return;
             mutate({ content: input });
           }
         }}
         disabled={isLoading}
       />
+      {isLoading && (
+        <div className="flex items-center justify-center">
+          <LoadingSpinner size={20} />
+        </div>
+      )}
     </div>
   );
 };
@@ -120,7 +127,7 @@ const Home: NextPage = () => {
           <div className="flex border-b border-slate-400 p-4">
             {!isSignedIn && <SignInButton />}
             {isSignedIn && (
-              <div className="gap-4">
+              <div className="w-full gap-4">
                 <CreatePostWizard />
                 <SignOutButton />
               </div>
