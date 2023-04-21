@@ -57,14 +57,27 @@ const PostView = (props: PostWithPost) => {
   );
 };
 
+const Feed = () => {
+  const { data: posts, isLoading: postsLoading } = api.posts.getAll.useQuery();
+
+  if (postsLoading) return <Loading />;
+
+  if (!posts) return <div>Something went wrong</div>;
+
+  return (
+    <div className="flex flex-col">
+      {[...posts, ...posts].map((fullPost) => (
+        <PostView key={fullPost.post.id} {...fullPost} />
+      ))}
+    </div>
+  );
+};
 const Home: NextPage = () => {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded: userLoaded } = useUser();
 
-  const { data: posts, isLoading } = api.posts.getAll.useQuery();
+  api.posts.getAll.useQuery();
 
-  if (isLoading) return <Loading />;
-
-  if (!posts) return <div>Something went wrong...</div>;
+  if (!userLoaded) return <div />;
 
   return (
     <>
@@ -84,11 +97,7 @@ const Home: NextPage = () => {
               </div>
             )}
           </div>
-          <div className="flex flex-col">
-            {[...posts, ...posts].map((fullPost) => (
-              <PostView key={fullPost.post.id} {...fullPost} />
-            ))}
-          </div>
+          <Feed />
         </div>
       </main>
     </>

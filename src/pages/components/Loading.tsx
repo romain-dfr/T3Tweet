@@ -29,8 +29,9 @@ const LoadingSpinner = ({ size }: LoadingSpinnerProps) => {
 
 const Loading = () => {
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <LoadingSpinner />
+    <div className="absolute right-0 top-0 flex h-screen w-screen items-center justify-center">
+      {/* //revoir le style*/}
+      <LoadingSpinner size={60} />
     </div>
   );
 };
