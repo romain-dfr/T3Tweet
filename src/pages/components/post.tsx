@@ -8,7 +8,7 @@ dayjs.extend(relativeTime);
 
 type PostWithPost = RouterOutputs["posts"]["getAll"][number];
 
-export const PostView = (props: PostWithPost) => {
+const PostView = (props: PostWithPost) => {
   const { post, author } = props;
   return (
     <div key={post.id} className="flex gap-3 border-b border-slate-400 p-4">
@@ -34,3 +34,5 @@ export const PostView = (props: PostWithPost) => {
     </div>
   );
 };
+
+export default PostView;

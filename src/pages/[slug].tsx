@@ -4,6 +4,7 @@ import { api } from "~/utils/api";
 import LayoutPage from "./components/layout";
 import Image from "next/image";
 import LoadingPage from "./components/loading";
+import PostView from "./components/post";
 
 const ProfileFeed = (props: { userId: string }) => {
   const { data, isLoading } = api.posts.getPostsByUserId.useQuery({
@@ -62,7 +63,6 @@ import { appRouter } from "~/server/api/root";
 import { prisma } from "~/server/db";
 import SuperJSON from "superjson";
 import { TRPCError } from "@trpc/server";
-import { PostView } from "./components/post";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const helpers = createServerSideHelpers({
