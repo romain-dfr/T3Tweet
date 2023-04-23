@@ -1,8 +1,8 @@
 import Image from "next/image";
-import type { RouterOutputs } from "~/utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
+import { type RouterOutputs } from "~/utils/api";
 
 dayjs.extend(relativeTime);
 
@@ -10,10 +10,13 @@ type PostWithPost = RouterOutputs["posts"]["getAll"][number];
 
 const PostView = (props: PostWithPost) => {
   const { post, author } = props;
+
+  if (!post || !author) return null;
+
   return (
     <div key={post.id} className="flex gap-3 border-b border-slate-400 p-4">
       <Image
-        src={author.profileImageUrl ?? ""}
+        src={author.profileImageUrl}
         alt="Profile image"
         className="rounded-full"
         width={56}

@@ -5,6 +5,7 @@ import LayoutPage from "./components/layout";
 import Image from "next/image";
 import LoadingPage from "./components/loading";
 import PostView from "./components/post";
+import { generateSSGHelper } from "~/server/api/helpers/ssgHelper";
 
 const ProfileFeed = (props: { userId: string }) => {
   const { data, isLoading } = api.posts.getPostsByUserId.useQuery({
@@ -58,41 +59,27 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   );
 };
 
-import { createServerSideHelpers } from "@trpc/react-query/server";
-import { appRouter } from "~/server/api/root";
-import { prisma } from "~/server/db";
-import SuperJSON from "superjson";
-import { TRPCError } from "@trpc/server";
-
 export const getStaticProps: GetStaticProps = async (context) => {
-  const helpers = createServerSideHelpers({
-    router: appRouter,
-    ctx: { prisma, userId: null },
-    transformer: SuperJSON, // optional - adds superjson serialization
-  });
+  const ssg = generateSSGHelper();
 
   const slug = context.params?.slug;
 
-  if (typeof slug !== "string")
-    throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "No slug" });
+  if (typeof slug !== "string") throw new Error("no slug");
 
   const username = slug.replace("@", "");
 
-  await helpers.profile.getUserByUsername.prefetch({ username });
+  await ssg.profile.getUserByUsername.prefetch({ username });
 
   return {
     props: {
-      trpcState: helpers.dehydrate(),
+      trpcState: ssg.dehydrate(),
       username,
     },
   };
 };
 
 export const getStaticPaths = () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
+  return { paths: [], fallback: "blocking" };
 };
 
 export default ProfilePage;
