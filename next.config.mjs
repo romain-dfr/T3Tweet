@@ -21,5 +21,14 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+
+  // disbale eslint and typescript checks when vercel is building to speed up the process bc CI will catch it
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  swcMinify: true,
 };
 export default config;
