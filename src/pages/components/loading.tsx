@@ -27,7 +27,7 @@ export const LoadingSpinner = ({ size }: LoadingSpinnerProps) => {
   );
 };
 
-export const LoadingPage = () => {
+const LoadingPage = () => {
   return (
     <div className="absolute right-0 top-0 flex h-screen w-screen items-center justify-center">
       {/* //revoir le style*/}
@@ -35,3 +35,5 @@ export const LoadingPage = () => {
     </div>
   );
 };
+
+export default LoadingPage;

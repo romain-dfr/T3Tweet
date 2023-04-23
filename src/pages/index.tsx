@@ -3,13 +3,13 @@ import { type NextPage } from "next";
 import Image from "next/image";
 
 import { type RouterOutputs, api } from "~/utils/api";
-import { LoadingPage, LoadingSpinner } from "./components/loading";
+import LoadingPage, { LoadingSpinner } from "./components/loading";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
-import { Layout } from "./components/layout";
+import LayoutPage from "./components/layout";
 
 dayjs.extend(relativeTime);
 
@@ -121,7 +121,7 @@ const Home: NextPage = () => {
   if (!userLoaded) return <div />;
 
   return (
-    <Layout>
+    <LayoutPage>
       <div className="flex border-b border-slate-400 p-4">
         {!isSignedIn && <SignInButton />}
         {isSignedIn && (
@@ -132,7 +132,7 @@ const Home: NextPage = () => {
         )}
       </div>
       <Feed />
-    </Layout>
+    </LayoutPage>
   );
 };
 
