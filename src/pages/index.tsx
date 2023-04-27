@@ -89,7 +89,7 @@ const Home: NextPage = () => {
 
   return (
     <LayoutPage>
-      <div className="flex border-b border-slate-400 p-4">
+      <div className="flex border-b border-[#2f3336] p-4">
         {!isSignedIn && <SignInButton />}
         {isSignedIn && (
           <div className="w-full gap-4">
